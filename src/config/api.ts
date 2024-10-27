@@ -40,7 +40,7 @@ export const DEFAULT = {
       // disables the whitelisting of client params
       disableParamScrubbing: false,
       // enable action response to logger
-      enableResponseLogging: false,
+      enableResponseLogging: true,
       // params you would like hidden from any logs. Can be an array of strings or a method that returns an array of strings.
       filteredParams: [] as string[] | (() => string[]),
       // responses you would like hidden from any logs. Can be an array of strings or a method that returns an array of strings.
@@ -81,6 +81,7 @@ export const DEFAULT = {
         // format is {roomName: {authKey, authValue}}
         // 'secureRoom': {authorized: true},
       } as Record<string, Record<string, any>>,
+      urlPathForActions: "api",
     };
   },
 };

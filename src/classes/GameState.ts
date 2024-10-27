@@ -39,4 +39,3 @@ export class GameState {
     return `${a}A${b}B`;
   }
 }
-

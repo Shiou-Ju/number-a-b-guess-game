@@ -36,6 +36,9 @@ export class Status extends Action {
   async run() {
     let nodeStatus = StatusMessages.healthy;
     const problems: string[] = [];
+    
+    // TODO: 這裡的 api 是什麼？
+    console.log(api)
 
     const consumedMemoryMB =
       Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;

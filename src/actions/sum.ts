@@ -1,4 +1,4 @@
-import { Action, ActionProcessor } from "actionhero";
+import { action, Action, ActionProcessor } from "actionhero";
 
 export class SumAction extends Action {
   constructor() {
@@ -20,6 +20,8 @@ export class SumAction extends Action {
 
   async run({ params, response }: ActionProcessor<this>) {
     console.log(`SumAction: 開始處理請求，參數: a=${params.a}, b=${params.b}`);
+    
+    
     const a = Number(params.a);
     const b = Number(params.b);
     

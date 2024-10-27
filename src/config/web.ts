@@ -107,6 +107,16 @@ export const DEFAULT = {
       // options to pass to the query parser
       // learn more about the options @ https://github.com/hapijs/qs
       queryParseOptions: {},
+      defaultMiddleware: [
+        "web-server",
+        // TODO: any
+        (data: any, next: any) => {
+          const { connection } = data;
+          console.log(`收到請求: ${connection.rawConnection.method} ${connection.rawConnection.uri}`);
+          console.log(`請求參數:`, connection.params);
+          next();
+        }
+      ],
     };
   },
 };

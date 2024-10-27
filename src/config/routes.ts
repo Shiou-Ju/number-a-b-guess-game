@@ -14,17 +14,13 @@ export const DEFAULT: { [namespace]: () => RoutesConfig } = {
       get: [
         { path: "/status", action: "status" },
         { path: "/swagger", action: "swagger" },
-        { path: "/sum", action: "sum" }
-        , { path: "/createChatRoom", action: "createChatRoom" },
-        {
-          path: "/sum",
-          action: "sum",
-          matchTrailingPathParts: false
-        }
+        { path: "/sum", action: "sum" },
+        { path: "/createChatRoom", action: "createChatRoom" }
       ],
 
       post: [
-        { path: "/sum", action: "sum" }
+        { path: "/game/create", action: "createGame" },
+        { path: "/game/guess", action: "guess" }
       ]
 
       /* ---------------------
