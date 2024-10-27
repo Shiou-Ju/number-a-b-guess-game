@@ -20,7 +20,7 @@
     "@types/jest": "latest",
     "@types/node": "latest",
     "jest": "latest",
-    "prettier": "latest",
+    "prettier": "^3.3.3",
     "ts-jest": "latest",
     "ts-node-dev": "latest",
     "type-fest": "latest",
@@ -35,8 +35,8 @@
     "test": "jest",
     "pretest": "npm run build && npm run lint",
     "build": "tsc --sourceMap false --declaration",
-    "lint": "prettier --check src/*/** __tests__/*/**",
-    "pretty": "prettier --write src/*/** __tests__/*/**"
+    "format": "prettier --write \"**/*.{js,ts,json}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,json}\""
   },
   "jest": {
     "testEnvironment": "node",
