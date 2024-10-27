@@ -1,0 +1,26 @@
+{
+  "name": "number-a-b-guess-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Shiou-Ju/number-a-b-guess-game.git",
+  "author": "Bamboo <75402531+Shiou-Ju@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --no-deps --notify=false --transpile-only ./src/server.ts",
+    "build": "tsc",
+    "start": "node ./dist/server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.0",
+    "actionhero": "^28.0.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  }
+}
