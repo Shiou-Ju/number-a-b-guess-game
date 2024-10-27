@@ -45,8 +45,7 @@ export const DEFAULT = {
           },
         },
         // See ActionProcessor#applyDefaultErrorLogLineFormat to see an example of how to customize
-        actionProcessor:
-          null as ActionProcessor<any>["applyDefaultErrorLogLineFormat"],
+        actionProcessor: null as ActionProcessor<any>["applyDefaultErrorLogLineFormat"],
       },
 
       // ///////////
@@ -54,10 +53,7 @@ export const DEFAULT = {
       // ///////////
 
       // When a params for an action is invalid
-      invalidParams: (
-        data: ActionProcessor<any>,
-        validationErrors: Array<string | Error>,
-      ) => {
+      invalidParams: (data: ActionProcessor<any>, validationErrors: Array<string | Error>) => {
         if (validationErrors.length >= 0) return validationErrors[0];
         return "validation error";
       },
@@ -91,10 +87,7 @@ export const DEFAULT = {
       // Decorate your response based on Error here.
       // Any action that throws an Error will pass through this method before returning
       //   an error to the client. Response can be edited here, status codes changed, etc.
-      async genericError(
-        data: ActionProcessor<any>,
-        error: NodeJS.ErrnoException,
-      ) {
+      async genericError(data: ActionProcessor<any>, error: NodeJS.ErrnoException) {
         return error;
       },
 

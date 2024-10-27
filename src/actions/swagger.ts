@@ -6,7 +6,7 @@ import { PackageJson } from "type-fest";
 const SWAGGER_VERSION = "2.0";
 const API_VERSION = ""; // if you need a prefix to your API routes, like `v1`
 const parentPackageJSON: PackageJson = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "..", "..", "package.json")).toString(),
+  fs.readFileSync(path.join(__dirname, "..", "..", "package.json")).toString()
 );
 
 const responses = {
@@ -74,9 +74,7 @@ export class Swagger extends Action {
         if (!action) return;
 
         const tag = action.name.split(":")[0];
-        const formattedPath = route.path
-          .replace("/v:apiVersion", "")
-          .replace(/\/:(\w*)/g, "/{$1}");
+        const formattedPath = route.path.replace("/v:apiVersion", "").replace(/\/:(\w*)/g, "/{$1}");
 
         swaggerPaths[formattedPath] = swaggerPaths[formattedPath] || {};
         swaggerPaths[formattedPath][method] = {
@@ -93,8 +91,7 @@ export class Swagger extends Action {
                 name: inputName,
                 type: "string", // not really true, but helps the swagger validator
                 required:
-                  action.inputs[inputName].required ||
-                  route.path.includes(`:${inputName}`)
+                  action.inputs[inputName].required || route.path.includes(`:${inputName}`)
                     ? true
                     : false,
                 default:
@@ -133,9 +130,8 @@ export class Swagger extends Action {
         license: { name: parentPackageJSON.license },
       },
       host:
-        config.web.allowedRequestHosts[0]
-          ?.replace("https://", "")
-          .replace("https://", "") ?? `localhost:${config.web.port}`,
+        config.web.allowedRequestHosts[0]?.replace("https://", "").replace("https://", "") ??
+        `localhost:${config.web.port}`,
       basePath: `/api/${API_VERSION}`,
       // tags: tags.map((tag) => {
       //   return { name: tag, description: `topic: ${tag}` };

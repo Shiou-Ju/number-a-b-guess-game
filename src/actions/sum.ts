@@ -4,7 +4,7 @@ export class SumAction extends Action {
   constructor() {
     super();
     console.log(`sum action constructor initialized`);
-    
+
     this.name = "sum";
     this.description = "return sum of a and b";
     this.outputExample = { sum: 3 };
@@ -20,11 +20,10 @@ export class SumAction extends Action {
 
   async run({ params, response }: ActionProcessor<this>) {
     console.log(`SumAction: 開始處理請求，參數: a=${params.a}, b=${params.b}`);
-    
-    
+
     const a = Number(params.a);
     const b = Number(params.b);
-    
+
     if (isNaN(a) || isNaN(b)) {
       throw new Error("Invalid input: a and b must be numbers");
     }

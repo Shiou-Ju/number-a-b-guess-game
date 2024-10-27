@@ -42,9 +42,7 @@ export const DEFAULT = {
       // you can learn more about retryStrategy @ https://github.com/luin/ioredis#auto-reconnect
       retryStrategy: (times: number) => {
         if (times === 1) {
-          console.error(
-            "Unable to connect to Redis - please check your Redis config!",
-          );
+          console.error("Unable to connect to Redis - please check your Redis config!");
           return 5000;
         }
         return Math.min(times * 50, maxBackoff);

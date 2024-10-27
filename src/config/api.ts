@@ -14,9 +14,7 @@ declare module "actionhero" {
 export const DEFAULT = {
   [namespace]: () => {
     const packageJSON: PackageJson = JSON.parse(
-      fs
-        .readFileSync(path.join(__dirname, "..", "..", "package.json"))
-        .toString(),
+      fs.readFileSync(path.join(__dirname, "..", "..", "package.json")).toString()
     );
 
     return {

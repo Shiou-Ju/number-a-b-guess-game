@@ -21,9 +21,7 @@ export const DEFAULT = {
       serverOptions: {},
       // Should we redirect all traffic to the first host in this array if hte request header doesn't match?
       // i.e.: [ 'https://www.site.com' ]
-      allowedRequestHosts: process.env.ALLOWED_HOSTS
-        ? process.env.ALLOWED_HOSTS.split(",")
-        : [],
+      allowedRequestHosts: process.env.ALLOWED_HOSTS ? process.env.ALLOWED_HOSTS.split(",") : [],
       // Port or Socket Path
       port: process.env.PORT || 8080,
       // Which IP to listen on (use '0.0.0.0' for the default ip stack; '::' for all on ipv4 and ipv6)
@@ -33,11 +31,10 @@ export const DEFAULT = {
       httpHeaders: {
         "X-Powered-By": config.general.serverName,
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods":
-          "HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS, TRACE",
+        "Access-Control-Allow-Methods": "HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS, TRACE",
         "Access-Control-Allow-Headers": "Content-Type",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       // Route that actions will be served from; secondary route against this route will be treated as actions,
       //  IE: /api/?action=test == /api/test/
@@ -96,7 +93,7 @@ export const DEFAULT = {
       // Options to configure metadata in responses
       metadataOptions: {
         serverInformation: true,
-        requesterInformation: true
+        requesterInformation: true,
       },
       // When true, returnErrorCodes will modify the response header for http(s) clients if connection.error is not null.
       // You can also set connection.rawConnection.responseHttpCode to specify a code per request.
@@ -112,10 +109,12 @@ export const DEFAULT = {
         // TODO: any
         (data: any, next: any) => {
           const { connection } = data;
-          console.log(`收到請求: ${connection.rawConnection.method} ${connection.rawConnection.uri}`);
+          console.log(
+            `收到請求: ${connection.rawConnection.method} ${connection.rawConnection.uri}`
+          );
           console.log(`請求參數:`, connection.params);
           next();
-        }
+        },
       ],
     };
   },

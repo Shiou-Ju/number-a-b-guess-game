@@ -17,11 +17,7 @@ enum StatusMessages {
 }
 
 const packageJSON: PackageJson = JSON.parse(
-  fs
-    .readFileSync(
-      path.normalize(path.join(__dirname, "..", "..", "package.json")),
-    )
-    .toString(),
+  fs.readFileSync(path.normalize(path.join(__dirname, "..", "..", "package.json"))).toString()
 );
 
 export class Status extends Action {
@@ -36,12 +32,11 @@ export class Status extends Action {
   async run() {
     let nodeStatus = StatusMessages.healthy;
     const problems: string[] = [];
-    
-    // TODO: 這裡的 api 是什麼？
-    console.log(api)
 
-    const consumedMemoryMB =
-      Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;
+    // TODO: 這裡的 api 是什麼？
+    console.log(api);
+
+    const consumedMemoryMB = Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;
     if (consumedMemoryMB > maxMemoryAlloted) {
       nodeStatus = StatusMessages.unhealthy;
       problems.push(`Using more than ${maxMemoryAlloted} MB of RAM/HEAP`);

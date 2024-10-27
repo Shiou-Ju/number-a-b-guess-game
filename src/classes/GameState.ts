@@ -10,14 +10,14 @@ export class GameState {
   private generateSecretNumber(): string {
     const numbers = Array.from({ length: 10 }, (_, i) => i);
     const result: number[] = [];
-    
+
     for (let i = 0; i < 4; i++) {
       const randomIndex = Math.floor(Math.random() * numbers.length);
       result.push(numbers[randomIndex]);
       numbers.splice(randomIndex, 1);
     }
-    
-    return result.join('');
+
+    return result.join("");
   }
 
   getSecretNumber(): string {
@@ -26,8 +26,9 @@ export class GameState {
 
   checkGuess(guess: string): string {
     this.attempts++;
-    let a = 0, b = 0;
-    
+    let a = 0,
+      b = 0;
+
     for (let i = 0; i < 4; i++) {
       if (guess[i] === this.secretNumber[i]) {
         a++;
@@ -35,7 +36,7 @@ export class GameState {
         b++;
       }
     }
-    
+
     return `${a}A${b}B`;
   }
 }
