@@ -23,10 +23,15 @@ export const DEFAULT = {
       // i.e.: [ 'https://www.site.com' ]
       allowedRequestHosts: process.env.ALLOWED_HOSTS ? process.env.ALLOWED_HOSTS.split(",") : [],
       // Port or Socket Path
-      port: process.env.PORT || 8080,
+      port: process.env.PORT || 5577,
+      // FIXME: there is a bug in actionhero, it will not show any error message when the port is already in use
+      // 中文描述
+      // 當 port 被佔用時， actionhero 不會顯示任何錯誤訊息
+      
       // Which IP to listen on (use '0.0.0.0' for the default ip stack; '::' for all on ipv4 and ipv6)
       // Set to `null` when listening to socket
       bindIP: "::",
+      // bindIP: "0.0.0.0",
       // Any additional headers you want actionhero to respond with
       httpHeaders: {
         "X-Powered-By": config.general.serverName,
@@ -109,10 +114,10 @@ export const DEFAULT = {
         // TODO: any
         (data: any, next: any) => {
           const { connection } = data;
-          console.log(
-            `收到請求: ${connection.rawConnection.method} ${connection.rawConnection.uri}`
-          );
-          console.log(`請求參數:`, connection.params);
+          console.log(`協議版本: ${connection.rawConnection.protocol}`);
+          console.log(`請求地址: ${connection.rawConnection.remoteAddress}`);
+          console.log(`請求方法: ${connection.rawConnection.method}`);
+          console.log(`請求路徑: ${connection.rawConnection.uri}`);
           next();
         },
       ],

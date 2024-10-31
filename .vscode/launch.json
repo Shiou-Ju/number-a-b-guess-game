@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug ActionHero",
+      "skipFiles": [],
+      "program": "${workspaceFolder}/src/server.ts",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js",
+        "${workspaceFolder}/node_modules/actionhero/dist/**/*.js"
+      ],
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/node_modules/actionhero/**"
+      ],
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": "8080"
+      }
+    }
+  ]
+}

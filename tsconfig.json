@@ -5,7 +5,17 @@
     "module": "commonjs",
     "target": "es2018",
     "sourceMap": true,
-    "noImplicitAny": true
+    // TODO: make true and fix all the errors
+    "strict": false,
+    "inlineSourceMap": false,
+    "inlineSources": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "actionhero": ["node_modules/actionhero/dist"]
+    }
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*"
+  ]
 }
