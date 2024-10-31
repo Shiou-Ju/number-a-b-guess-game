@@ -7,11 +7,12 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "@types/ws": "^8.5.12",
     "actionhero": "29.3.2",
     "ioredis": "latest",
     "ioredis-mock": "latest",
     "winston": "latest",
-    "ws": "latest"
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/formidable": "^3.4.5",

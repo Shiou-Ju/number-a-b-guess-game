@@ -29,30 +29,27 @@ export const DEFAULT = {
       // websocket Server Options:
       server: {
         // authorization: null,
-        // pathname:      '/primus',
+        pathname: '/websocket',
         // parser:        'JSON',
         // transformer:   'websockets',
         // plugin:        {},
-        // timeout:       35000,
-        // origins:       '*',
+        origins: '*',
         // methods:       ['GET','HEAD','PUT','POST','DELETE','OPTIONS'],
-        // credentials:   true,
+        credentials: true,
         // maxAge:        '30 days',
         // exposed:       false,
       },
 
       // websocket Client Options:
       client: {
-        apiPath: "/api", // the api base endpoint on your actionhero server
-        // the cookie name we should use for shared authentication between WS and web connections
+        apiPath: "/api",
         cookieKey: config.web.fingerprintOptions.cookieKey,
         // reconnect:        {},
-        // timeout:          10000,
-        // ping:             25000,
-        // pong:             10000,
-        // strategy:         "online",
+        ping: 25000,
+        pong: 10000,
+        strategy: "online",
         // manual:           false,
-        // websockets:       true,
+        websockets: true,
         // network:          true,
         // transport:        {},
         // queueSize:        Infinity,

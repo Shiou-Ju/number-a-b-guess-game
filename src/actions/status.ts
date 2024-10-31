@@ -34,7 +34,7 @@ export class Status extends Action {
     const problems: string[] = [];
 
     // TODO: 這裡的 api 是什麼？
-    console.log(api);
+    // console.log(api);
 
     const consumedMemoryMB = Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100;
     if (consumedMemoryMB > maxMemoryAlloted) {
