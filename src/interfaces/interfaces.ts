@@ -27,3 +27,17 @@ export interface GameRepository {
   makeGuess(roomId: string, playerId: string, guess: string): Promise<string>;
   getRoom(roomId: string): Promise<GameRoom | null>;
 }
+
+
+export enum GameCommand {
+  CREATE = "create",
+  JOIN = "join",
+  SET_NUMBER = "setNumber",
+  GUESS = "guess"
+}
+
+
+export enum StorageType {
+  LOCAL = "local",
+  REDIS = "redis"
+} 

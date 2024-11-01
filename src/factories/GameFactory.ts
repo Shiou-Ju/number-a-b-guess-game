@@ -1,19 +1,15 @@
-import { RedisGameRepository } from '../repositories/RedisGameRepository';
+import { GameRepository, StorageType } from '../interfaces/interfaces';
 import { LocalStorageGameRepository } from '../repositories/LocalStorageGameRepository';
-import { GameRepository } from '../interfaces/interfaces';
+import { RedisGameRepository } from '../repositories/RedisGameRepository';
 
 export class GameFactory {
-  static createRepository(): GameRepository {
-    // 根據環境變數決定使用哪種儲存方式
-    const storageType = process.env.STORAGE_TYPE || 'redis';
-    
-    // TODO: make enum for storageType not switch case
-    switch (storageType.toLowerCase()) {
-      case 'local':
-        return new LocalStorageGameRepository();
-      case 'redis':
-      default:
-        return new RedisGameRepository();
+  static createRepository(storageType: string = StorageType.LOCAL): GameRepository {
+    const type = (process.env.STORAGE_TYPE || storageType).toLowerCase();
+
+    if (type === StorageType.REDIS) {
+      return new RedisGameRepository();
     }
+
+    return new LocalStorageGameRepository();
   }
 }

@@ -16,7 +16,6 @@ export class LocalStorageGameRepository implements GameRepository {
     };
 
     this.rooms.set(roomId, room);
-    this.persistToLocalStorage();
     return room;
   }
 
@@ -31,7 +30,6 @@ export class LocalStorageGameRepository implements GameRepository {
     };
 
     this.rooms.set(roomId, room);
-    this.persistToLocalStorage();
     return room;
   }
 
@@ -52,7 +50,6 @@ export class LocalStorageGameRepository implements GameRepository {
     }
 
     this.rooms.set(roomId, room);
-    this.persistToLocalStorage();
   }
 
   async makeGuess(roomId: string, playerId: string, guess: string): Promise<string> {
@@ -73,28 +70,11 @@ export class LocalStorageGameRepository implements GameRepository {
     });
 
     this.rooms.set(roomId, room);
-    this.persistToLocalStorage();
     return result;
   }
 
   async getRoom(roomId: string): Promise<GameRoom | null> {
     return this.rooms.get(roomId) || null;
-  }
-
-  private persistToLocalStorage(): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('gameRooms', JSON.stringify(Array.from(this.rooms.entries())));
-    }
-  }
-
-  // TODO: usage of this method?
-  private loadFromLocalStorage(): void {
-    if (typeof localStorage !== 'undefined') {
-      const saved = localStorage.getItem('gameRooms');
-      if (saved) {
-        this.rooms = new Map(JSON.parse(saved));
-      }
-    }
   }
 
   private checkGuess(guess: string, secret: string): string {
