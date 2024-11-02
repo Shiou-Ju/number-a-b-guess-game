@@ -1,0 +1,18 @@
+.game-lobby {
+  .room-list {
+    margin-top: 2rem;
+    
+    .room-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+  }
+}
