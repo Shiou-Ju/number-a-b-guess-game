@@ -69,6 +69,11 @@ export class LocalStorageGameRepository implements GameRepository {
       timestamp: Date.now()
     });
 
+    if (result === '4A0B') {
+      room.status = 'finished';
+      room.winner = playerId;
+    }
+
     this.rooms.set(roomId, room);
     return result;
   }

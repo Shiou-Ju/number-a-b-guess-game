@@ -11,6 +11,7 @@ export interface GameRoom {
     ready: boolean;
   };
   status: 'waiting' | 'playing' | 'finished';
+  winner?: string;
   guessHistory: Array<{
     playerId: string;
     guess: string;

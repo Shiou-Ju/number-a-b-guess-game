@@ -69,6 +69,18 @@ ws.on('message', (data) => {
       makeGuess(role === 'player1' ? '5678' : '1234');
     }, 2000);
   }
+
+  if (message.room?.status === 'finished') {
+    console.log('遊戲結束！');
+    const currentPlayerId = role === 'player1' ? message.room.player1.id : message.room.player2?.id;
+    if (message.room.winner === currentPlayerId) {
+      console.log('恭喜你獲勝！');
+    } else {
+      console.log('你輸了！再接再厲！');
+    }
+    ws.close();
+    process.exit(0);
+  }
 });
 
 function setPlayerNumber(number: string) {

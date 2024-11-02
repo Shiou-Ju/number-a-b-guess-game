@@ -28,15 +28,34 @@ export class GameService {
   }
 
   async makeGuess(roomId: string, playerId: string, guess: string): Promise<string> {
-    const result = await this.repository.makeGuess(roomId, playerId, guess);
+    try {
+      const room = await this.repository.getRoom(roomId);
+      if (!room) {
+        throw new Error("房間不存在");
+      }
 
-    await chatRoom.broadcast(
-      {},
-      `game-${roomId}`,
-      `玩家 ${playerId} 猜測：${guess}，結果：${result}`
-    );
+      // 檢查是否為房間內的玩家
+      if (room.player1.id !== playerId && room.player2?.id !== playerId) {
+        throw new Error("非遊戲玩家");
+      }
 
-    return result;
+      const result = await this.repository.makeGuess(roomId, playerId, guess);
+
+      // 廣播猜測結果
+      await this.broadcast(roomId, `玩家 ${playerId} 猜測：${guess}，結果：${result}`);
+
+      // 如果猜中了
+      if (result === '4A0B') {
+        const winner = room.player1.id === playerId ? room.player1 : room.player2;
+        await this.broadcast(roomId, `遊戲結束！玩家 ${playerId} 獲勝！`);
+      }
+
+      return result;
+    } catch (error) {
+      // 記錄錯誤
+      console.error(`遊戲錯誤 [${roomId}]: ${error.message}`);
+      throw error;
+    }
   }
 
   async joinRoom(roomId: string, playerId: string): Promise<GameRoom> {
@@ -53,5 +72,21 @@ export class GameService {
       status: room.status,
       playerCount: (room.player2 ? 2 : 1)
     }));
+  }
+
+  async broadcast(roomId: string, message: string) {
+    await chatRoom.broadcast({}, `game-${roomId}`, message);
+  }
+
+  // TODO: not sure if this is needed
+  // 新增：檢查玩家是否在房間中
+  private async validatePlayer(roomId: string, playerId: string): Promise<void> {
+    const room = await this.repository.getRoom(roomId);
+    if (!room) {
+      throw new Error("房間不存在");
+    }
+    if (room.player1.id !== playerId && room.player2?.id !== playerId) {
+      throw new Error("非遊戲玩家");
+    }
   }
 }

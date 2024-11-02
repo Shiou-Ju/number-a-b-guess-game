@@ -58,7 +58,8 @@ export class RedisGameRepository implements GameRepository {
   async makeGuess(roomId: string, playerId: string, guess: string): Promise<string> {
     const room = await this.getRoom(roomId);
     if (!room) throw new Error("房間不存在");
-    if (room.status !== 'playing') throw new Error("遊戲尚未開始");
+    if (room.status === 'waiting') throw new Error("遊戲尚未開始");
+    if (room.status === 'finished') throw new Error("遊戲已結束");
 
     const opponent = room.player1.id === playerId ? room.player2 : room.player1;
     if (!opponent?.secretNumber) throw new Error("對手尚未準備好");
@@ -71,6 +72,11 @@ export class RedisGameRepository implements GameRepository {
       result,
       timestamp: Date.now()
     });
+
+    if (result === '4A0B') {
+      room.status = 'finished';
+      room.winner = playerId;
+    }
 
     await this.saveRoom(roomId, room);
     return result;
