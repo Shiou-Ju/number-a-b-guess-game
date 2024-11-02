@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="zh-TW" />
+    <meta name="description" content="1A2B 遊戲" />
+    <link href="/public/css/cosmo.css" rel="stylesheet" type="text/css" />
+    <link href="/public/css/game.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
+    <title>1A2B 遊戲</title>
+
+    <script type="text/javascript" src="/public/javascript/ActionheroWebsocketClient.js"></script>
+    <script type="text/javascript" src="/public/javascript/game-utils.js"></script>
+    <script type="text/javascript" src="/public/javascript/game-actions.js"></script>
+    <script type="text/javascript" src="/public/javascript/game-ui.js"></script>
+    <script type="text/javascript" src="/public/javascript/game-client.js"></script>
+  </head>
+
+  <body onload="boot()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>AABB猜數字</h1>
+          <hr />
+        </div>
+      </div>
+
+      <!-- 遊戲大廳區域 -->
+      <div class="row mb-4" id="gameLobby">
+        <div class="col-md-12">
+          <div class="card border-info">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3 class="mb-0">遊戲大廳</h3>
+              <button id="createRoom" class="btn btn-primary">建立新房間</button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>房間號</th>
+                      <th>狀態</th>
+                      <th>玩家數</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="roomList">
+                    <!-- 房間列表將由 JavaScript 動態填充 -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 遊戲區域 -->
+      <div id="gameArea" style="display: none;">
+        <div class="row">
+          <!-- 遊戲資訊區 -->
+          <div class="col-md-4">
+            <div class="card border-primary mb-3">
+              <div class="card-header">
+                <h3>玩家資訊</h3>
+                <p>ID: <strong><span id="name"></span></strong></p>
+                <p class="small">房間號: <span id="roomId"></span></p>
+              </div>
+              <div class="card-body">
+                <!-- 數字鍵盤 -->
+                <div class="number-pad mb-3">
+                  <div class="mb-2">你的數字：<span id="playerNumber">未設定</span></div>
+                  <div class="btn-group-vertical w-100">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary number-btn" data-number="1">1</button>
+                      <button class="btn btn-outline-primary number-btn" data-number="2">2</button>
+                      <button class="btn btn-outline-primary number-btn" data-number="3">3</button>
+                    </div>
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary number-btn" data-number="4">4</button>
+                      <button class="btn btn-outline-primary number-btn" data-number="5">5</button>
+                      <button class="btn btn-outline-primary number-btn" data-number="6">6</button>
+                    </div>
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary number-btn" data-number="7">7</button>
+                      <button class="btn btn-outline-primary number-btn" data-number="8">8</button>
+                      <button class="btn btn-outline-primary number-btn" data-number="9">9</button>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <button id="clearNumber" class="btn btn-warning">清除</button>
+                    <button id="randomNumber" class="btn btn-info">隨機</button>
+                    <button id="setNumber" class="btn btn-success">確定</button>
+                  </div>
+                </div>
+
+                <!-- 猜測輸入區 -->
+                <div class="guess-input">
+                  <input type="text" id="guessInput" class="form-control mb-2" placeholder="輸入猜測數字" maxlength="4" />
+                  <button id="makeGuess" class="btn btn-primary">猜測</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 遊戲記錄區 -->
+          <div class="col-md-8">
+            <div class="card border-info">
+              <div class="card-header">
+                遊戲記錄
+              </div>
+              <div class="card-body">
+                <div class="list-group" id="gameLog"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 聊天區 -->
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="card border-success">
+              <div class="card-header">
+                聊天室
+              </div>
+              <div class="card-body">
+                <div class="chat-messages mb-3" id="chatBox"></div>
+                <form id="messageForm" class="form-inline">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="message" placeholder="輸入訊息" />
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-success">發送</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

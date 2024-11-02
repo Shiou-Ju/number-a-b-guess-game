@@ -1,0 +1,64 @@
+.number-pad .btn-group {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.number-pad .btn {
+  flex: 1;
+  margin: 2px;
+}
+
+.chat-message {
+  padding: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-message small {
+  margin-left: 8px;
+  color: #666;
+}
+
+.game-info {
+  margin-bottom: 15px;
+}
+
+#gameLog {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#chatBox {
+  height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .number-pad .btn {
+    padding: 15px;
+    font-size: 1.2em;
+  }
+  
+  .game-info {
+    margin-bottom: 10px;
+  }
+}
+
+.table-responsive {
+  margin: 0;
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+#roomList tr td {
+  vertical-align: middle;
+}
+
+#gameLobby .btn-sm {
+  padding: 0.25rem 1rem;
+}
