@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import { PackageJson } from "type-fest";
-import { ActionheroLogLevel } from "actionhero";
+import { ActionheroConfigInterface, ActionheroLogLevel } from "actionhero";
 
 const namespace = "general";
 
@@ -82,6 +82,12 @@ export const DEFAULT = {
       urlPathForActions: "api",
     };
   },
+  api: (config: ActionheroConfigInterface) => {
+    return {
+      allowedOrigins: ['http://localhost:5577'],
+      apiVersion: '1',
+    }
+  }
 };
 
 export const test = {

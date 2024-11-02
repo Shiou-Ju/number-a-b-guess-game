@@ -103,4 +103,18 @@ export class RedisGameRepository implements GameRepository {
     }
     return `${a}A${b}B`;
   }
+
+  async listRooms(): Promise<GameRoom[]> {
+    const keys = await api.redis.clients.client.keys(this.ROOM_PREFIX + "*");
+    const rooms: GameRoom[] = [];
+    
+    for (const key of keys) {
+      const data = await api.redis.clients.client.get(key);
+      if (data) {
+        rooms.push(JSON.parse(data));
+      }
+    }
+    
+    return rooms;
+  }
 }

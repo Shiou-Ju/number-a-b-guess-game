@@ -12,6 +12,15 @@ export class GameRoomAction extends Action {
     super();
     this.name = "gameRoom";
     this.description = "遊戲房間相關操作";
+    this.version = 1;
+    this.outputExample = {
+      room: {
+        id: "abc123",
+        status: "waiting",
+        player1: { id: "player1", ready: false }
+      }
+    };
+
     this.inputs = {
       command: {
         required: true,
@@ -69,6 +78,10 @@ export class GameRoomAction extends Action {
       if (!params.roomId || !params.guess) throw new Error("需要房間 ID 和猜測數字");
       const result = await this.gameService.makeGuess(params.roomId, connection.id, params.guess);
       return { result };
+    }
+
+    if (command === GameCommand.LIST) {
+      return { rooms: await this.gameService.listRooms() };
     }
 
     throw new Error("未知的命令");

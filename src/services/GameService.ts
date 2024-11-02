@@ -1,6 +1,7 @@
 import { chatRoom } from "actionhero";
-import { GameRepository, GameRoom } from '../interfaces/interfaces';
+import { GameRepository, GameRoom, RoomListRoom } from '../interfaces/interfaces';
 import { validateNumber } from '../utils/validators';
+
 
 export class GameService {
   constructor(private repository: GameRepository) {}
@@ -43,5 +44,14 @@ export class GameService {
 
     await chatRoom.broadcast({}, `game-${roomId}`, `玩家 ${playerId} 加入了房間`);
     return room;
+  }
+
+  async listRooms(): Promise<RoomListRoom[]> {
+    const rooms = await this.repository.listRooms();
+    return rooms.map(room => ({
+      id: room.id,
+      status: room.status,
+      playerCount: (room.player2 ? 2 : 1)
+    }));
   }
 }

@@ -88,4 +88,8 @@ export class LocalStorageGameRepository implements GameRepository {
     }
     return `${a}A${b}B`;
   }
+
+  async listRooms(): Promise<GameRoom[]> {
+    return Array.from(this.rooms.values());
+  }
 }

@@ -26,6 +26,7 @@ export interface GameRepository {
   setNumber(roomId: string, playerId: string, number: string): Promise<void>;
   makeGuess(roomId: string, playerId: string, guess: string): Promise<string>;
   getRoom(roomId: string): Promise<GameRoom | null>;
+  listRooms(): Promise<GameRoom[]>;
 }
 
 
@@ -33,7 +34,8 @@ export enum GameCommand {
   CREATE = "create",
   JOIN = "join",
   SET_NUMBER = "setNumber",
-  GUESS = "guess"
+  GUESS = "guess",
+  LIST = "list"  
 }
 
 
@@ -41,3 +43,10 @@ export enum StorageType {
   LOCAL = "local",
   REDIS = "redis"
 } 
+
+
+export interface RoomListRoom {
+  id: string;
+  status: 'waiting' | 'playing' | 'finished';
+  playerCount: number;
+}
