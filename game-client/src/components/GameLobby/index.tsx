@@ -33,6 +33,21 @@ export const GameLobby = (): JSX.Element => {
     }
   };
 
+  const handleJoinRoom = async (roomId: string) => {
+    try {
+      await gameService.joinRoom(roomId);
+      const { subscribe } = gameService.connectWebSocket(roomId);
+      const unsubscribe = subscribe((data: any) => {
+        if (data.room) {
+          dispatch({ type: 'SET_ROOM', payload: data.room });
+        }
+      });
+      dispatch({ type: 'SET_ROOM_ID', payload: roomId });
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: '加入房間失敗' });
+    }
+  };
+
   return (
     <div className="game-lobby">
       <h1>遊戲大廳</h1>
@@ -50,6 +65,14 @@ export const GameLobby = (): JSX.Element => {
             <span>房間 {room.id}</span>
             <span>狀態: {room.status}</span>
             <span>玩家數: {room.playerCount}/2</span>
+            {room.playerCount < 2 && (
+              <button 
+                className="btn btn-primary"
+                onClick={() => handleJoinRoom(room.id)}
+              >
+                加入房間
+              </button>
+            )}
           </div>
         ))}
       </div>

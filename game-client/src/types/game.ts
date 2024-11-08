@@ -49,3 +49,9 @@ export type GameAction =
   | { type: 'SET_ERROR'; payload: string }
   | { type: 'CLEAR_ERROR' }
   | { type: 'SET_ROOM_ID'; payload: string | null };
+
+export interface WebSocketMessage {
+  room?: GameRoom;
+  result?: string;
+  error?: string;
+}

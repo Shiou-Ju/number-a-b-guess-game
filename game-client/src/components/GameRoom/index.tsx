@@ -3,6 +3,7 @@ import { useGameContext } from '../../contexts/GameContext';
 import { NumberPad } from '../NumberPad';
 import { gameService } from '../../services/gameService';
 import './GameRoom.scss';
+import { WebSocketMessage } from '../../types/game';
 
 export const GameRoom = (): JSX.Element => {
   const { state, dispatch } = useGameContext();
@@ -14,7 +15,7 @@ export const GameRoom = (): JSX.Element => {
     if (!currentRoom?.id) return;
     
     const { subscribe, close } = gameService.connectWebSocket(currentRoom.id);
-    const unsubscribe = subscribe((data) => {
+    const unsubscribe = subscribe((data: WebSocketMessage) => {
       if (data.room) {
         dispatch({ type: 'SET_ROOM', payload: data.room });
       }
@@ -29,6 +30,12 @@ export const GameRoom = (): JSX.Element => {
       close();
     };
   }, [currentRoom?.id, dispatch]);
+
+  useEffect(() => {
+    if (currentRoom?.status === 'playing') {
+      setGuessMode(true);
+    }
+  }, [currentRoom?.status]);
 
   const handleNumberSelect = (number: string) => {
     dispatch({ type: 'SELECT_NUMBER', payload: number });
